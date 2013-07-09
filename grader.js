@@ -47,7 +47,7 @@ var loadChecks = function(checksfile) {
 };
 
 var checkHtmlFile = function(htmlfile, checksfile) {
-    console.log("in checkHtmlFile");
+    //    console.log("in checkHtmlFile");
     $ = cheerioHtmlFile(htmlfile);
     var checks = loadChecks(checksfile).sort();
     var out = {};
@@ -59,7 +59,7 @@ var checkHtmlFile = function(htmlfile, checksfile) {
 };
 
 var checkUrlContent = function(url_content, checksfile) {
-    console.log("in checkUrl");
+    //    console.log("in checkUrl");
     $ = cheerio.load(url_content);
     var checks = loadChecks(checksfile).sort();
     var out = {};
@@ -71,10 +71,10 @@ var checkUrlContent = function(url_content, checksfile) {
 };
 
 var checkUrlLink = function(url, checksfile) {
-    console.log("in checkUrlLink: " + url + " \ " + checksfile);
+    //    console.log("in checkUrlLink: " + url + " \ " + checksfile);
 
     rest.get(url).on('complete', function(result) {
-	console.log("in onComplete function");
+	//	console.log("in onComplete function");
 	if (result instanceof Error) {
 	    console.error('Error: ' + result.message);
 	    process.exit(1);
@@ -95,7 +95,7 @@ var clone = function(fn) {
 };
 
 if(require.main == module) {
-    console.log("in main");
+    //    console.log("in main");
     program
 	.option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
 	.option('-f, --file <html_file>', 'Path to index.html')
@@ -103,14 +103,14 @@ if(require.main == module) {
 	.parse(process.argv);
 
     if (program.file) {
-	console.log("program.file: " + program.file);
+	//	console.log("program.file: " + program.file);
 	var checkJson = checkHtmlFile(program.file, program.checks);
 	console.log(JSON.stringify(checkJson, null, 4));
 	process.exit(0);
     }
     if (program.url) {
-	console.log("program.url: " + program.url);
-	console.log("program.checks: " + program.checks);
+	//	console.log("program.url: " + program.url);
+	//	console.log("program.checks: " + program.checks);
 	checkUrlLink(program.url, program.checks);
 
     }
